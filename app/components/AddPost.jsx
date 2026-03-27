@@ -12,9 +12,13 @@ export default function AddPost({onAdd}) {
         e.preventDefault()
         setLoading(true)
         
+        const user = getUser()
+
         const {error} = await supabase
         .from('Posts')
-        .insert({title, content})
+        .insert({title, content,
+            user_id: user.id
+        })
 
         if (!error) {
             setTitle("")
